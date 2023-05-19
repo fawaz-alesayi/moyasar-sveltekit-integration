@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { superForm } from 'sveltekit-superforms/client';
 
 	export let data;
@@ -8,14 +8,23 @@
 	const checkout_form = data.form;
 
 	const { enhance, delayed, constraints, form: client_form } = superForm(checkout_form);
+
+	function insertSlashIfNeeded(value: string, lastValue: string) {
+		if (value.length === 2 && !value.includes('/') && value.length > lastValue.length) {
+			return `${value}/`;
+		}
+		return value;
+	}
+
+	function handleExpirationDateInput(event: Event) {
+		const value = event.target.value;
+		const lastValue = $client_form['expiration-date'];
+
+		$client_form['expiration-date'] = insertSlashIfNeeded(value, lastValue);
+	}
 </script>
 
-<form
-	class="max-w-md mt-10 pt-10 mx-auto"
-	use:enhance
-	method="POST"
-	action="?/pay"
->
+<form class="max-w-md mt-10 pt-10 mx-auto" use:enhance method="POST" action="?/pay">
 	<h2 class="text-lg font-bold text-gray-900">Payment</h2>
 
 	<fieldset class="mt-4">
@@ -93,7 +102,8 @@
 					name="expiration-date"
 					id="expiration-date"
 					autocomplete="cc-exp"
-					bind:value={$client_form['expiration-date']}
+					value={$client_form['expiration-date']}
+					on:input={handleExpirationDateInput}
 					{...$constraints['expiration-date']}
 					class="p-2 block w-full shadow-sm rounded-md border-gray-300 focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
 				/>
