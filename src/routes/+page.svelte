@@ -11,7 +11,7 @@
 </script>
 
 <form
-	class="max-w-md mt-10 border-t border-gray-200 pt-10 mx-auto"
+	class="max-w-md mt-10 pt-10 mx-auto"
 	use:enhance
 	method="POST"
 	action="?/pay"

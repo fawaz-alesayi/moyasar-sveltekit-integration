@@ -4,11 +4,15 @@ import type { PageServerLoad } from "./$types";
 import HttpStatusCode from "$lib/httpStatusCodes.ts";
 import type { z } from "zod";
 import { checkout_schema } from "$lib/payments/schemas/checkout.ts";
-import { create_payment_source_schema } from "$lib/payments/schemas/payment.ts";
+import { create_payment_source_schema, payment_response_schema } from "$lib/payments/schemas/payment.ts";
 import { make_payment_object, make_payment, PaymentError } from "$lib/payments/service.ts";
+
+const TEST_CARD = '4111111111111111'
 
 export const load = (async (event) => {
     const form = await superValidate(event, checkout_schema);
+
+    form.data['card-number'] = TEST_CARD
 
     return { form };
 }) satisfies PageServerLoad;

@@ -95,11 +95,6 @@ npm run dev
 npm run dev -- --open
 ```
 
-### Note
-
-Currently, the user is redirected to `http://localhost:3000/callback` after payment. This will not work because the callback URL must be https. You can use [ngrok](https://ngrok.com/) or [Cloudflare Tunnels](https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/do-more-with-tunnels/trycloudflare/)to create a tunnel to your localhost and use the generated URL as the callback URL.
-
-
 ```bash
 
 ## Building

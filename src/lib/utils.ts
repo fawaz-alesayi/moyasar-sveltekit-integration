@@ -1,3 +1,3 @@
 import { env } from "$env/dynamic/private";
 
-export const base_url = env['development'] ? 'http://localhost:3000' : 'https://moyasar-sveltekit.vercel.app'
+export const base_url = env['VERCEL'] ? `https://${env['VERCEL_URL']}` : 'http://localhost:3000';

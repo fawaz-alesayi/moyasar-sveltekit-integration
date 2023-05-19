@@ -1,5 +1,6 @@
 import { MOYASAR_SECRET_KEY } from "$env/static/private";
 import { type create_payment_source_schema, type create_payment_schema, payment_response_schema } from "$lib/payments/schemas/payment";
+import { base_url } from "$lib/utils";
 import type { z } from "zod";
 
 export const make_payment_object = (source: z.infer<typeof create_payment_source_schema>) => {
@@ -8,7 +9,7 @@ export const make_payment_object = (source: z.infer<typeof create_payment_source
         currency: 'SAR',
         description: 'Test payment',
         source: source,
-        callback_url: 'https://localhost:3000/callback',
+        callback_url: `${base_url}/callback`,
     }
 
     return payment;
